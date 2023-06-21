@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'AzureInfrasture-Conn'
+    subscriptionId: '65f68b8a-07ce-4fef-8e0b-95b17b2d0079'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'ooladunjoye'
+    location: 'Canada Central'
+    templateLocation: 'URL of the file'
+    csmFileLink: 'https://raw.githubusercontent.com/olu1muy/InfrastructureTest/main/azureInf/main.bicep'
+    overrideParameters: '-projectName myarmpipeline'
+    deploymentMode: 'Incremental'
+    deploymentName: 'deployPipelinetemplate'
